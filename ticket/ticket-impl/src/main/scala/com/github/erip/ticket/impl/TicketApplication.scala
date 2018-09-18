@@ -7,11 +7,16 @@ import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceCo
 import com.lightbend.lagom.scaladsl.server._
 import com.softwaremill.macwire._
 import play.api.libs.ws.ahc.AhcWSComponents
+import play.api.mvc.EssentialFilter
+import play.filters.cors.CORSComponents
 
 abstract class TicketApplication(context: LagomApplicationContext)
     extends LagomApplication(context)
     with AhcWSComponents
+    with CORSComponents
     with CassandraPersistenceComponents {
+
+  override val httpFilters: Seq[EssentialFilter] = Seq(corsFilter)
 
   override lazy val lagomServer            = serverFor[TicketService](wire[TicketServiceImpl])
   override lazy val jsonSerializerRegistry = TicketSerializerRegistry

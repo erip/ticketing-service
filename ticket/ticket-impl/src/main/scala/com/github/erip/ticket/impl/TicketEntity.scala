@@ -72,8 +72,8 @@ object TicketEntityState {
     require(rows > 0 && columns > 0, "Rows and columns must be positive")
 
     val availableSeats: Seq[Seat] =
-      // There are [0, rows*columns) seats initially
-      (0 until rows * columns)
+      // There are [1, rows*columns+1) seats initially
+      (1 until (rows * columns) + 1)
       // The seats are in groups of size `columns` (i.e., row-size)
         .grouped(columns)
         .zipWithIndex

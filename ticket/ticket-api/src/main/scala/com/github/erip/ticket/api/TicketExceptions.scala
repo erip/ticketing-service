@@ -3,6 +3,12 @@ import java.util.UUID
 
 import com.lightbend.lagom.scaladsl.api.transport.{ TransportErrorCode, TransportException }
 
+final case class UnsupportedOperation()
+    extends TransportException(
+      errorCode = TransportErrorCode.BadRequest,
+      message = s"Operation is currently not supported"
+    )
+
 final case class CustomerAlreadyHasHoldException(customerId: UUID)
     extends TransportException(
       errorCode = TransportErrorCode.BadRequest,

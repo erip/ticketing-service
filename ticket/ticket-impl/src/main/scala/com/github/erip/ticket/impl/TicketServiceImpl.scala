@@ -41,11 +41,7 @@ class TicketServiceImpl(registry: PersistentEntityRegistry)(implicit ec: Executi
   override def availableSeats(availability: Boolean): ServiceCall[NotUsed, Seq[Seat]] =
     ServerServiceCall { _ =>
       if (!availability) {
-        Future.failed(
-          new IllegalArgumentException(
-            "There is currently no support for browsing unavailable seats."
-          )
-        )
+        Future.failed(UnsupportedOperation())
       } else {
         ticketSaleEntity.ask(TicketEntity.InternalGetAvailableSeats).map(_.seats)
       }
