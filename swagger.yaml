@@ -1,0 +1,160 @@
+swagger: "2.0"
+info:
+  description: "This specification defines all models and endpoints consumable and producable by the ticketing service"
+  version: "1.0.0"
+  title: "Ticketing Service"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:9000"
+basePath: "/api/ticket/"
+tags:
+- name: "ticketing"
+  description: "Everything about ticketing"
+schemes:
+- "http"
+paths:
+  /seats/length:
+    get:
+      tags:
+      - "ticketing"
+      summary: "Get the number of available seats"
+      description: ""
+      operationId: "numberOfAvailableSeats"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            type: "integer"
+            example: 50
+          description: "Number of available seats in the venue"
+  /seats:
+    get:
+      tags:
+      - "ticketing"
+      summary: "Gets all seats by availability"
+      description: ""
+      operationId: "availableSeats"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "availability"
+        in: "query"
+        description: "Whether available seats (true) or unavailable seats (false) should be returned"
+        required: true
+        type: "boolean"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Seat"
+            example: [ {"number": 1}, {"number":2 } ]
+        400:
+          description: "Getting unavailable seats is currently unsupported"
+  /hold:
+    post:
+      tags:
+      - "ticketing"
+      summary: "Recommends and holds seats for a customer"
+      description: ""
+      operationId: "findAndHoldSeats"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: "body"
+          schema:
+            $ref: "#/definitions/HoldSeats"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SeatHold"
+            example: { "reservationId": "71e3357e-60eb-4893-b51e-fa0bdb60fb4d", "seats": [ {"number": 1}, {"number":2 } ] }
+        400:
+          description: "Customer already has a hold or not enough seats"
+  /reserve:
+    put:
+      tags:
+      - "ticketing"
+      summary: "Confirm a hold"
+      description: ""
+      operationId: "reserveSeats"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: "body"
+          schema:
+            $ref: "#/definitions/ConfirmReservation"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+            format: "uuid"
+            example: "736d94cb-7ee1-4bd4-9c75-01f793969e84"
+        404:
+          description: "Reservation or customer not found"          
+definitions:
+  Seat:
+    type: "object"
+    required:
+    - "number"
+    properties:
+      number:
+        type: "integer"
+        format: "int64"
+        example: 1
+  HoldSeats:
+    type: "object"
+    required:
+    - "numberOfSeats"
+    - "customerId"
+    properties:
+      numberOfSeats:
+        type: "integer"
+        format: "int64"
+        example: 5
+      customerId:
+        type: "string"
+        format: "uuid"
+        example: "3955e0b0-7202-450d-93aa-b1acc4e15258"
+  SeatHold:
+    type: "object"
+    required:
+    - "reservationId"
+    - "seats"
+    properties:
+      reservationId:
+        type: "string"
+        format: "uuid"
+        example: "71e3357e-60eb-4893-b51e-fa0bdb60fb4d"
+      seats:
+        type: "array"
+        items:
+          $ref: "#/definitions/Seat"
+  ConfirmReservation:
+    type: "object"
+    required:
+    - "reservationId"
+    - "customerId"
+    properties:
+      reservationId:
+        type: "string"
+        format: "uuid"
+        example: "71e3357e-60eb-4893-b51e-fa0bdb60fb4d"
+      customerId:
+        type: "string"
+        format: "uuid"
+        example: "3955e0b0-7202-450d-93aa-b1acc4e15258"        
+ 
