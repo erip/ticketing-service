@@ -18,6 +18,8 @@ I will expose RESTful API endpoints for the required interface's public methods;
 
 These endpoints will be documented in a [Swagger](https://swagger.io/) specification against which consumers may design their services and consume the ticket service's API.
 
+Due to a bug in Swagger, some requests will fail due to CORS requests. For this reason, I recommend copy and pasting the curl commands that Swagger presents or download a client in your favorite language.
+
 ### Low level
 
 Because a part of the design includes a subjective determination of "best N seats", my initial design will simply optimize for the customer (and his guests) to be able to see the movie: if seats are available, they will be taken greedily with no preference for proximity to the customer. This optimizes for seeing the film over the experience of viewing with friends and is a simple "approximation".
