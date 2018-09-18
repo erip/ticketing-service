@@ -94,4 +94,4 @@ To enable coverage locally with `sbt`, issue `sbt clean coverage test coverageRe
 
 ## Authors
 
-- [Elijah Rippeth](elijah.rippeth@gmail.com)
+- [Elijah Rippeth](mailto:elijah.rippeth@gmail.com)
