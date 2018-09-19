@@ -1,4 +1,4 @@
-# Ticket Service [![Build Status](https://travis-ci.org/erip/ticketing-service.svg?branch=master)](https://travis-ci.org/erip/ticketing-service)
+# Ticket Service [![Build Status](https://travis-ci.org/erip/ticketing-service.svg?branch=master)](https://travis-ci.org/erip/ticketing-service) [![codecov.io](http://codecov.io/github/erip/ticketing-service/coverage.svg?branch=master)](http://codecov.io/github/erip/ticketing-service?branch=master)
 
 ## Description
 
