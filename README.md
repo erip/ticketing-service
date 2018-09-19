@@ -1,4 +1,4 @@
-# Ticket Service
+# Ticket Service [![Build Status](https://travis-ci.org/erip/ticketing-service.svg?branch=master)](https://travis-ci.org/erip/ticketing-service)
 
 ## Description
 
