@@ -4,11 +4,10 @@ sudo: required
 group: edge
 jdk:
   - oraclejdk8
-env:
-  matrix:
-    - SCRIPT=run_tests_sbt.sh
+scala:
+  - 2.12.6
 # important to use eval, otherwise "&&" is passed as an argument to sbt rather than being processed by bash
-script: bin/$SCRIPT
+script: sbt clean coverage test coverageReport coverageAggregate
 before_install:
     # See https://github.com/travis-ci/travis-ci/issues/4629#issuecomment-239493916
     - rm ~/.m2/settings.xml
