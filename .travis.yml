@@ -22,3 +22,6 @@ before_cache:
   # Delete all ivydata files since ivy touches them on each build
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" | xargs rm
   - find $HOME/.sbt -name "*.lock" -delete
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
