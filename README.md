@@ -12,6 +12,8 @@ I intend to implement this as a reactive system due to the high-demand nature of
 
 To do this, I will realize the service as a RESTful [Lagom](https://www.lagomframework.com/) microservice backed by Kafka as the message broker and Cassandra as the event store.
 
+The heart of the business logic lies in the persistent entity; in this project, that will be the `TicketEntity.scala` file.
+
 ### Mid level
 
 I will expose RESTful API endpoints for the required interface's public methods; other endpoints will be added on an ad hoc basis as determined necessary.
